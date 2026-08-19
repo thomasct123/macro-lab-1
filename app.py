@@ -115,7 +115,7 @@ def bloco_salvar(chave, nome_base, tabelas: dict, texto_extra=None):
                 escolha = "— criar nova —"
             nova = st.text_input("Subpasta (níveis separados por /)",
                                  key=f"nova_{chave}",
-                                 placeholder="Projeto ABCT/VAR/rodada 1")
+                                 placeholder="Projeto/VAR/rodada 1")
         with c2:
             st.caption("**Download direto**")
             try:
@@ -1203,7 +1203,7 @@ with abas[10]:
     with c1:
         st.subheader("Salvar configuração atual")
         nome_proj = st.text_input("Nome do projeto",
-                                  placeholder="ABCT — crédito e curva")
+                                  placeholder=" — crédito e curva")
         if st.button("💾 Salvar projeto", type="primary",
                      disabled=not nome_proj.strip()):
             cfg = {

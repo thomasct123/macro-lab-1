@@ -30,6 +30,23 @@ def carregar_base(arquivo, col_data="data"):
     return df
 
 
+def carregar_base_df(df, col_data="data"):
+    """
+    Normaliza um DataFrame já carregado (ex.: baixado do GitHub):
+    identifica a coluna de data, indexa e força tipagem numérica.
+    """
+    df = df.copy()
+    if col_data not in df.columns:
+        cands = [c for c in df.columns if "dat" in str(c).lower()]
+        if not cands:
+            raise ValueError("Nenhuma coluna de data encontrada.")
+        col_data = cands[0]
+    df[col_data] = pd.to_datetime(df[col_data])
+    df = df.sort_values(col_data).set_index(col_data)
+    df.index.name = "data"
+    return df.apply(pd.to_numeric, errors="coerce")
+
+
 def resumo_cobertura(df):
     """Tabela com cobertura temporal e estatísticas de cada coluna."""
     linhas = []
